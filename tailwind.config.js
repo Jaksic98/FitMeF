@@ -90,6 +90,8 @@ module.exports = {
         '4.5': '18px', // kompaktni card padding
         '5.5': '22px', // razmak između sekcija
         '13':  '52px', // veliki vertikalni razmak
+        '1.25':  '5px', // badge py
+        '2.25':  '9px', // badge px
         '2.75': '11px', // dugme default py
         '3.25': '13px', // dugme lg py
         '3.75': '15px', // dugme nav px

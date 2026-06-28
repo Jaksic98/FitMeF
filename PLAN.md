@@ -30,13 +30,13 @@ Iz `DESIGN.md` → Komponente. Svaka: varijante + stanja + tokeni tačno kako su
 
 ## Modul 2 — UI primitivi: prikaz i feedback
 
-- [ ] `Card` — varijante `content`/`list`, `stat`/dark, `info`, `empty-state`.
-- [ ] `Badge` / `StatusPill` — `success`/`danger`/`neutral`, mono `text-micro`. Vezati za `lib/status.ts`.
-- [ ] `Avatar` — krug, inicijali, veličine 34/52px.
-- [ ] `Modal` (Success/Confirm) — `animate-pop` ulaz, `scrim` + `backdrop-blur-scrim` backdrop; focus-trap + `Esc` + `aria` (a11y delta).
-- [ ] `Toast` — tamni, dole-centar, `animate-toast`, auto-dismiss ~2.6s. Provider za globalno pozivanje.
-- [ ] `Alert` / `Banner` — `danger`/`warning`/`error` varijante (koristi se za no-credits, pomeranje termina, validaciju).
-- [ ] `SegmentedControl` — role-switch (track `bg-track`, `rounded-pill`) i booking-variation switch.
+- [x] `Card` — varijante `content`/`list`, `stat`/dark, `info`, `empty-state`.
+- [x] `Badge` / `StatusPill` — `success`/`danger`/`neutral`, mono `text-micro`. Vezati za `lib/status.ts`.
+- [x] `Avatar` — krug, inicijali, veličine 34/52px.
+- [x] `Modal` (Success/Confirm) — `animate-pop` ulaz, `scrim` + `backdrop-blur-scrim` backdrop; focus-trap + `Esc` + `aria` (a11y delta).
+- [x] `Toast` — tamni, dole-centar, `animate-toast`, auto-dismiss ~2.6s. Provider za globalno pozivanje.
+- [x] `Alert` / `Banner` — `danger`/`warning`/`error` varijante (koristi se za no-credits, pomeranje termina, validaciju).
+- [x] `SegmentedControl` — role-switch (track `bg-track`, `rounded-pill`) i booking-variation switch.
 
 ## Modul 3 — Layout i navigacija (app shell)
 
