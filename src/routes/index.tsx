@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { AppLayout } from '../components/layout'
 import { LoginPage, RegisterPage, ActivatePage } from '../features/auth'
+import { BookingPage } from '../features/booking'
 import type { ReactNode } from 'react'
 
 function GuestGuard({ children }: { children: ReactNode }) {
@@ -37,7 +38,7 @@ export function AppRoutes() {
       {/* App shell — sve autentifikovane rute */}
       <Route element={<AppLayout />}>
         {/* Client — Modul 5–6 */}
-        <Route path="/" element={<ClientGuard><div>Rezervacija</div></ClientGuard>} />
+        <Route path="/" element={<ClientGuard><BookingPage /></ClientGuard>} />
         <Route path="/termini" element={<ClientGuard><div>Moji termini</div></ClientGuard>} />
         <Route path="/profil" element={<ClientGuard><div>Profil</div></ClientGuard>} />
 

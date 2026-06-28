@@ -59,11 +59,11 @@ Backend: `SPEC.md` §4.1 (registracija → INACTIVE, aktivacija → ACTIVE).
 
 Backend: `SPEC.md` §4.3 booking, §4.2 pre-generisani slotovi.
 
-- [ ] `DaySelector` (date strip) — horizontalna traka, mono `dnum`, selected/default.
-- [ ] `MachineCard` (izbor sprave) — `card`/`chip`, available/selected/disabled.
-- [ ] `AppointmentSlot` (TimeSlot) — varijante A (kartica) / B (red rasporeda); stanja available/booked/past/open/selected.
-- [ ] Booking tok: izbor dan → sprava → slot → potvrda (Confirm `Modal`). Reflektovati `remainingAppointments > 0` (disable + no-credits `Alert` kad je 0). Surface backend grešku ("nema preostalih termina"/"slot nije dostupan").
-- [ ] Booking-variation `SegmentedControl` ako prototip nudi varijacije prikaza.
+- [x] `DaySelector` (date strip) — horizontalna traka, mono `dnum`, selected/default.
+- [x] `MachineCard` (izbor sprave) — `card`/`chip`, available/selected/disabled.
+- [x] `AppointmentSlot` (TimeSlot) — varijante A (kartica) / B (red rasporeda); stanja available/booked/past/open/selected.
+- [x] Booking tok: izbor dan → sprava → slot → potvrda (Confirm `Modal`). Reflektovati `remainingAppointments > 0` (disable + no-credits `Alert` kad je 0). Surface backend grešku ("nema preostalih termina"/"slot nije dostupan").
+- [x] Booking-variation `SegmentedControl` ako prototip nudi varijacije prikaza.
 
 ## Modul 6 — Klijent: Moji termini + Profil (feature: appointments/users)
 

@@ -40,6 +40,20 @@ export interface Appointment {
   user?: User
 }
 
+// Denormalized appointment slot — matches backend AppointmentDTO
+export interface AppointmentSlotDTO {
+  id: number
+  terminId: number
+  pilatesId: number
+  userId: number | null
+  status: AppointmentStatus
+  terminDate: string        // "YYYY-MM-DD"
+  terminStartTime: string   // "HH:mm"
+  terminEndTime: string     // "HH:mm"
+  pilatesPosition: string
+  pilatesName: string
+}
+
 // Backend response envelopes
 export interface SuccessResponseDTO<T> {
   data: T
