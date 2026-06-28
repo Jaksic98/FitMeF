@@ -12,7 +12,11 @@ export class ApiClientError extends Error {
   }
 }
 
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
+interface RequestOptions {
+  skipAuthRedirect?: boolean
+}
+
+async function request<T>(path: string, init?: RequestInit, options?: RequestOptions): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {
     headers: { 'Content-Type': 'application/json', ...init?.headers },
     credentials: 'include',
@@ -20,7 +24,9 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   })
 
   if (response.status === 401) {
-    window.location.href = '/login'
+    if (!options?.skipAuthRedirect) {
+      window.location.href = '/login'
+    }
     throw new ApiClientError('UNAUTHORIZED', 'Sesija je istekla. Preusmeravanje na prijavu.')
   }
 
@@ -39,7 +45,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const apiClient = {
-  get: <T>(path: string) => request<T>(path),
+  get: <T>(path: string, options?: RequestOptions) => request<T>(path, undefined, options),
   post: <T>(path: string, data?: unknown) =>
     request<T>(path, { method: 'POST', body: data !== undefined ? JSON.stringify(data) : undefined }),
   put: <T>(path: string, data?: unknown) =>

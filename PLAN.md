@@ -50,10 +50,10 @@ Iz `DESIGN.md` → Komponente. Svaka: varijante + stanja + tokeni tačno kako su
 
 Backend: `SPEC.md` §4.1 (registracija → INACTIVE, aktivacija → ACTIVE).
 
-- [ ] Login ekran — hero (`text-display`), forma (`text-h2`), email+password, error banner iz backend poruke.
-- [ ] Register ekran — username/email/password; po uspehu poruka "proveri mejl za aktivaciju".
-- [ ] Activate ruta — `GET /api/auth/activate?token=...` flow (link iz mejla); success/expired stanje (idempotentno na backendu).
-- [ ] Wire na `authApi` (login/register/activate/me); `AuthContext` drži korisnika+role.
+- [x] Login ekran — hero (`text-display`), forma (`text-h2`), email+password, error banner iz backend poruke.
+- [x] Register ekran — username/email/password; po uspehu poruka "proveri mejl za aktivaciju".
+- [x] Activate ruta — `GET /api/auth/activate?token=...` flow (link iz mejla); success/expired stanje (idempotentno na backendu).
+- [x] Wire na `authApi` (login/register/activate/me); `AuthContext` drži korisnika+role.
 
 ## Modul 5 — Klijent: Rezervacija (feature: appointments — booking)
 

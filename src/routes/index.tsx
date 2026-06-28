@@ -1,17 +1,27 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { AppLayout } from '../components/layout'
+import { LoginPage, RegisterPage, ActivatePage } from '../features/auth'
 import type { ReactNode } from 'react'
 
+function GuestGuard({ children }: { children: ReactNode }) {
+  const { user, isAdmin, isLoading } = useAuth()
+  if (isLoading) return null
+  if (user) return <Navigate to={isAdmin ? '/admin/sprave' : '/'} replace />
+  return <>{children}</>
+}
+
 function AdminGuard({ children }: { children: ReactNode }) {
-  const { user, isAdmin } = useAuth()
+  const { user, isAdmin, isLoading } = useAuth()
+  if (isLoading) return null
   if (!user) return <Navigate to="/login" replace />
   if (!isAdmin) return <p className="p-8 text-center text-danger">Pristup odbijen.</p>
   return <>{children}</>
 }
 
 function ClientGuard({ children }: { children: ReactNode }) {
-  const { user } = useAuth()
+  const { user, isLoading } = useAuth()
+  if (isLoading) return null
   if (!user) return <Navigate to="/login" replace />
   return <>{children}</>
 }
@@ -19,10 +29,10 @@ function ClientGuard({ children }: { children: ReactNode }) {
 export function AppRoutes() {
   return (
     <Routes>
-      {/* Auth — bez shell-a (Modul 4) */}
-      <Route path="/login" element={<div>Login</div>} />
-      <Route path="/register" element={<div>Register</div>} />
-      <Route path="/activate" element={<div>Activate</div>} />
+      {/* Auth — bez shell-a */}
+      <Route path="/login" element={<GuestGuard><LoginPage /></GuestGuard>} />
+      <Route path="/register" element={<GuestGuard><RegisterPage /></GuestGuard>} />
+      <Route path="/activate" element={<ActivatePage />} />
 
       {/* App shell — sve autentifikovane rute */}
       <Route element={<AppLayout />}>
