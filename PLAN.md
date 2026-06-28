@@ -40,11 +40,11 @@ Iz `DESIGN.md` → Komponente. Svaka: varijante + stanja + tokeni tačno kako su
 
 ## Modul 3 — Layout i navigacija (app shell)
 
-- [ ] `Header` / `AppBar` — sticky, `bg-header-bg` + `backdrop-blur-header`, visina 66px, `max-w-content`. Sadrži NavTabs + CreditsPill + Avatar + role-switch.
-- [ ] `NavTabs` — admin (Sprave/Termini/Rezervacije/Korisnici) i klijent (Rezervacija/Moji termini/Profil); active/inactive/hover.
-- [ ] `CreditsPill` — crvena tačka + mono broj kredita; klik → Profil. Vezati za `User.remainingAppointments`.
-- [ ] Route guards: `ADMIN` vs `CLIENT` (UX sloj — backend `@PreAuthorize` je prava brana); 401→login, 403→friendly.
-- [ ] App layout: shell + `<Outlet/>`, responsive (`flex-wrap` slaganje panela na mobile, dvopanelno na `lg`).
+- [x] `Header` / `AppBar` — sticky, `bg-header-bg` + `backdrop-blur-header`, visina 66px, `max-w-content`. Sadrži NavTabs + CreditsPill + Avatar + role-switch.
+- [x] `NavTabs` — admin (Sprave/Termini/Rezervacije/Korisnici) i klijent (Rezervacija/Moji termini/Profil); active/inactive/hover.
+- [x] `CreditsPill` — crvena tačka + mono broj kredita; klik → Profil. Vezati za `User.remainingAppointments`.
+- [x] Route guards: `ADMIN` vs `CLIENT` (UX sloj — backend `@PreAuthorize` je prava brana); 401→login, 403→friendly.
+- [x] App layout: shell + `<Outlet/>`, responsive (`flex-wrap` slaganje panela na mobile, dvopanelno na `lg`).
 
 ## Modul 4 — Auth ekrani (feature: auth)
 
