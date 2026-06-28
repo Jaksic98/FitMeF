@@ -22,11 +22,11 @@ Status legenda: `[ ]` nije početo, `[~]` u toku, `[x]` završeno.
 
 Iz `DESIGN.md` → Komponente. Svaka: varijante + stanja + tokeni tačno kako su katalogizovani.
 
-- [ ] `Button` — varijante `primary`/`accent`/`secondary`/`ghost`/`danger-outline`/`success-outline`/`icon`/`pill`; stanja default/hover/disabled/active; **dodati `loading`** (spinner, dugme disabled — ne postoji u prototipu, predlog iz `DESIGN.md`).
-- [ ] `Input` (text/email/password) — **dodati vidljiv focus prsten** `focus:ring-2 focus:ring-primary` (a11y, prototip ga nema); `error` stanje (`border-danger` + helper `text-danger`).
-- [ ] `Select` / `Dropdown` — native `<select>`, vizual kao input.
-- [ ] `DateInput` — native `<input type="date">` sa `min`/`max`; koristi se u FilterBar (admin Termini).
-- [ ] `Toggle` / `Switch` — on (`bg-primary`) / off (`bg-switch-off`), knob transition; keyboard + `aria` (a11y delta).
+- [x] `Button` — varijante `primary`/`accent`/`secondary`/`ghost`/`danger-outline`/`success-outline`/`icon`/`pill`; stanja default/hover/disabled/active; **dodati `loading`** (spinner, dugme disabled — ne postoji u prototipu, predlog iz `DESIGN.md`).
+- [x] `Input` (text/email/password) — **dodati vidljiv focus prsten** `focus:ring-2 focus:ring-primary` (a11y, prototip ga nema); `error` stanje (`border-danger` + helper `text-danger`).
+- [x] `Select` / `Dropdown` — native `<select>`, vizual kao input.
+- [x] `DateInput` — native `<input type="date">` sa `min`/`max`; koristi se u FilterBar (admin Termini).
+- [x] `Toggle` / `Switch` — on (`bg-primary`) / off (`bg-switch-off`), knob transition; keyboard + `aria` (a11y delta).
 
 ## Modul 2 — UI primitivi: prikaz i feedback
 

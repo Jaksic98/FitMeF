@@ -47,6 +47,7 @@ module.exports = {
         danger: '#C23232',
         'danger-subtle': '#FBEAEA',
         'danger-border': '#ECD0D0',
+        'success-border': '#CFE6D6', // success-outline dugme ivica
         'danger-emphasis': '#9A1414',   // jak tekst u alert/error banneru
         warning: '#B08A1E',
         'warning-text': '#6F5A1E',
@@ -89,6 +90,10 @@ module.exports = {
         '4.5': '18px', // kompaktni card padding
         '5.5': '22px', // razmak između sekcija
         '13':  '52px', // veliki vertikalni razmak
+        '2.75': '11px', // dugme default py
+        '3.25': '13px', // dugme lg py
+        '3.75': '15px', // dugme nav px
+        '8.5':  '34px', // icon dugme / paginacija kvadrat
       },
 
       borderRadius: {
