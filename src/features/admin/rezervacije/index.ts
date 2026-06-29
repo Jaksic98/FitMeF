@@ -1,0 +1,1 @@
+export { RezervacijePage } from './RezervacijePage'

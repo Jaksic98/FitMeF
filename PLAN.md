@@ -78,13 +78,13 @@ Backend: `SPEC.md` §4.4 cancel (12h pravilo), §4.5 reschedule, profil = `User`
 
 Backend: `SPEC.md` §3, §5; admin-only `@PreAuthorize`. Sve liste dele `DataTable` + `Pagination` + (gde treba) `FilterBar`.
 
-- [ ] `DataTable` / `ListRow` — header-traka (`bg-surface-subtle`, UPPERCASE `text-label`) + redovi (`border-t border-line`); `editing` inline varijanta (admin Rezervacije).
-- [ ] `Pagination` — info + prev/next + numerisane strane (34px), **1-indexed** prema backendu, page-size 5.
-- [ ] `FilterBar` — labela + `DateInput` + "Poništi filter" + mono brojač; active/inactive/prazan-rezultat.
-- [ ] Admin **Sprave** (Pilates) CRUD — lista + create/edit forma (`position`, `name`, `status`), `StatusPill`, soft-delete.
-- [ ] Admin **Termini** CRUD — lista + `FilterBar` po datumu + create/edit (`date`/`startTime`/`endTime`), surface overlap/time-range backend grešku u `Alert`/error.
-- [ ] Admin **Rezervacije** (Appointment) — lista + inline `editing` red; admin full CRUD (bez 12h/credit pravila).
-- [ ] Admin **Korisnici** CRUD — lista + edit (uklj. `remainingAppointments` top-up preko `PUT`, vidi `SPEC.md` §3), `StatusPill` za status/lockout.
+- [x] `DataTable` / `ListRow` — header-traka (`bg-surface-subtle`, UPPERCASE `text-label`) + redovi (`border-t border-line`); `editing` inline varijanta (admin Rezervacije).
+- [x] `Pagination` — info + prev/next + numerisane strane (34px), **1-indexed** prema backendu, page-size 5.
+- [x] `FilterBar` — labela + `DateInput` + "Poništi filter" + mono brojač; active/inactive/prazan-rezultat.
+- [x] Admin **Sprave** (Pilates) CRUD — lista + create/edit forma (`position`, `name`, `status`), `StatusPill`, soft-delete.
+- [x] Admin **Termini** CRUD — lista + `FilterBar` po datumu + create/edit (`date`/`startTime`/`endTime`), surface overlap/time-range backend grešku u `Alert`/error.
+- [x] Admin **Rezervacije** (Appointment) — lista + inline `editing` red; admin full CRUD (bez 12h/credit pravila).
+- [x] Admin **Korisnici** CRUD — lista + edit (uklj. `remainingAppointments` top-up preko `PUT`, vidi `SPEC.md` §3), `StatusPill` za status/lockout.
 
 ## Modul 8 — Polish i build
 

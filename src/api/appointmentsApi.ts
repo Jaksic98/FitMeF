@@ -1,5 +1,5 @@
 import { apiClient } from './client'
-import type { AppointmentSlotDTO } from '../types'
+import type { AppointmentSlotDTO, AppointmentStatus, Page, PageParams } from '../types'
 
 export const appointmentsApi = {
   getAvailable: (date?: string) =>
@@ -14,4 +14,8 @@ export const appointmentsApi = {
     apiClient.put<AppointmentSlotDTO>(`/appointments/${id}`, {}),
   reschedule: (id: number, newAppointmentId: number) =>
     apiClient.put<AppointmentSlotDTO>(`/appointments/${id}`, { newAppointmentId }),
+  getAll: ({ page, size = 5 }: PageParams) =>
+    apiClient.get<Page<AppointmentSlotDTO>>(`/appointments?page=${page}&size=${size}`),
+  adminUpdate: (id: number, status: AppointmentStatus) =>
+    apiClient.put<AppointmentSlotDTO>(`/appointments/${id}`, { status }),
 }

@@ -5,6 +5,10 @@ import { LoginPage, RegisterPage, ActivatePage } from '../features/auth'
 import { BookingPage } from '../features/booking'
 import { MyAppointmentsPage } from '../features/myappointments'
 import { ProfilePage } from '../features/profile'
+import { SpravePage } from '../features/admin/sprave'
+import { TerminiPage } from '../features/admin/termini'
+import { RezervacijePage } from '../features/admin/rezervacije'
+import { KorisniciPage } from '../features/admin/korisnici'
 import type { ReactNode } from 'react'
 
 function GuestGuard({ children }: { children: ReactNode }) {
@@ -45,10 +49,10 @@ export function AppRoutes() {
         <Route path="/profil" element={<ClientGuard><ProfilePage /></ClientGuard>} />
 
         {/* Admin — Modul 7 */}
-        <Route path="/admin/sprave" element={<AdminGuard><div>Admin Sprave</div></AdminGuard>} />
-        <Route path="/admin/termini" element={<AdminGuard><div>Admin Termini</div></AdminGuard>} />
-        <Route path="/admin/rezervacije" element={<AdminGuard><div>Admin Rezervacije</div></AdminGuard>} />
-        <Route path="/admin/korisnici" element={<AdminGuard><div>Admin Korisnici</div></AdminGuard>} />
+        <Route path="/admin/sprave" element={<AdminGuard><SpravePage /></AdminGuard>} />
+        <Route path="/admin/termini" element={<AdminGuard><TerminiPage /></AdminGuard>} />
+        <Route path="/admin/rezervacije" element={<AdminGuard><RezervacijePage /></AdminGuard>} />
+        <Route path="/admin/korisnici" element={<AdminGuard><KorisniciPage /></AdminGuard>} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

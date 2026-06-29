@@ -1,0 +1,1 @@
+export { SpravePage } from './SpravePage'
