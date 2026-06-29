@@ -1,24 +1,23 @@
 import { apiClient } from './client'
-import type { Page, PageParams, Status, Termin } from '../types'
+import type { Status, Termin } from '../types'
 
 export interface CreateTerminRequest {
   date: string       // "YYYY-MM-DD"
-  startTime: string  // "HH:mm"
-  endTime: string    // "HH:mm"
+  startTime: string  // "HH:mm:ss"
+  endTime: string    // "HH:mm:ss"
 }
 
 export interface UpdateTerminRequest {
   date?: string
-  startTime?: string
-  endTime?: string
+  startTime?: string // "HH:mm:ss"
+  endTime?: string   // "HH:mm:ss"
   status?: Status
 }
 
 export const terminiApi = {
-  getAll: ({ page, size = 5, date }: PageParams & { date?: string }) => {
-    const q = new URLSearchParams({ page: String(page), size: String(size) })
-    if (date) q.set('date', date)
-    return apiClient.get<Page<Termin>>(`/termini?${q}`)
+  getAll: (date?: string) => {
+    const q = date ? `?date=${date}` : ''
+    return apiClient.get<Termin[]>(`/termini${q}`)
   },
 
   create: (data: CreateTerminRequest) =>

@@ -7,9 +7,10 @@ export type AppointmentStatus = 'AVAILABLE' | 'BOOKED' | 'CANCELED'
 export interface User {
   id: number
   username: string
+  fullName: string
   email: string
-  phone?: string
-  role: Role
+  phoneNumber?: string
+  roles: Role[]
   status: Status
   remainingAppointments: number
   emailNotifications: boolean
@@ -19,15 +20,15 @@ export interface User {
 export interface Pilates {
   id: number
   name: string
-  position: number
+  position: string
   status: Status
 }
 
 export interface Termin {
   id: number
   date: string       // "YYYY-MM-DD"
-  startTime: string  // "HH:mm"
-  endTime: string    // "HH:mm"
+  startTime: string  // "HH:mm:ss"
+  endTime: string    // "HH:mm:ss"
   status: Status
 }
 
@@ -56,10 +57,11 @@ export interface AppointmentSlotDTO {
 
 // Backend response envelopes
 export interface SuccessResponseDTO<T> {
-  data: T
+  entity: T
+  success: boolean
   message: string
   path: string
-  timestamp: string
+  timestamp: number
 }
 
 export interface ErrorResponseDTO {
@@ -74,12 +76,12 @@ export interface ApiError {
   message: string
 }
 
-// Pagination — backend is 1-indexed; page field here is 0-indexed as returned by Spring
+// Pagination — backend uses 1-indexed `page` field
 export interface Page<T> {
-  content: T[]
+  data: T[]
   totalElements: number
   totalPages: number
-  number: number
+  page: number
   size: number
 }
 

@@ -1,21 +1,33 @@
 import { apiClient } from './client'
-import type { AppointmentSlotDTO, AppointmentStatus, Page, PageParams } from '../types'
+import type { AppointmentSlotDTO } from '../types'
 
 export const appointmentsApi = {
   getAvailable: (date?: string) =>
     apiClient.get<AppointmentSlotDTO[]>(
       date ? `/appointments/available?date=${date}` : '/appointments/available',
     ),
+
   getMyAppointments: (userId: number) =>
     apiClient.get<AppointmentSlotDTO[]>(`/appointments/user/${userId}`),
+
   book: (appointmentId: number) =>
-    apiClient.post<AppointmentSlotDTO>('/appointments', { appointmentId }),
+    apiClient.post<AppointmentSlotDTO>('/appointments', { appointmentId, userId: null }),
+
   cancel: (id: number) =>
-    apiClient.put<AppointmentSlotDTO>(`/appointments/${id}`, {}),
-  reschedule: (id: number, newAppointmentId: number) =>
-    apiClient.put<AppointmentSlotDTO>(`/appointments/${id}`, { newAppointmentId }),
-  getAll: ({ page, size = 5 }: PageParams) =>
-    apiClient.get<Page<AppointmentSlotDTO>>(`/appointments?page=${page}&size=${size}`),
-  adminUpdate: (id: number, status: AppointmentStatus) =>
-    apiClient.put<AppointmentSlotDTO>(`/appointments/${id}`, { status }),
+    apiClient.put<AppointmentSlotDTO>(`/appointments/${id}`, { targetAppointmentId: null }),
+
+  reschedule: (id: number, targetAppointmentId: number) =>
+    apiClient.put<AppointmentSlotDTO>(`/appointments/${id}`, { targetAppointmentId }),
+
+  getAll: () =>
+    apiClient.get<AppointmentSlotDTO[]>('/appointments'),
+
+  adminCancel: (id: number) =>
+    apiClient.put<AppointmentSlotDTO>(`/appointments/${id}`, { targetAppointmentId: null }),
+
+  adminReschedule: (id: number, targetAppointmentId: number) =>
+    apiClient.put<AppointmentSlotDTO>(`/appointments/${id}`, { targetAppointmentId }),
+
+  adminDelete: (id: number) =>
+    apiClient.delete<void>(`/appointments/${id}`),
 }

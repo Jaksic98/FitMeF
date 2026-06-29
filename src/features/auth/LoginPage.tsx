@@ -27,7 +27,7 @@ export function LoginPage() {
     try {
       const user = await authApi.login(data)
       setUser(user)
-      navigate(user.role === 'ADMIN' ? '/admin/sprave' : '/', { replace: true })
+      navigate(user.roles?.includes('ADMIN') ? '/admin/sprave' : '/', { replace: true })
     } catch (err) {
       setServerError(err instanceof ApiClientError ? err.message : 'Greška pri prijavi. Pokušaj ponovo.')
     }

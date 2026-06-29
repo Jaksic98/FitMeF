@@ -8,7 +8,7 @@ export function ProfilePage() {
   const { user, setUser } = useAuth()
   const { show } = useToast()
 
-  const [phone, setPhone] = useState(user?.phone ?? '')
+  const [phone, setPhone] = useState(user?.phoneNumber ?? '')
   const [emailNotif, setEmailNotif] = useState(user?.emailNotifications ?? true)
   const [calendarNotif, setCalendarNotif] = useState(user?.calendarNotifications ?? true)
   const [isSaving, setIsSaving] = useState(false)
@@ -22,7 +22,7 @@ export function ProfilePage() {
     setSaveError(null)
     try {
       const updated = await usersApi.updateProfile(user.id, {
-        phone: phone.trim() || undefined,
+        phoneNumber: phone.trim() || undefined,
         emailNotifications: emailNotif,
         calendarNotifications: calendarNotif,
       })

@@ -41,7 +41,7 @@ async function request<T>(path: string, init?: RequestInit, options?: RequestOpt
     throw new ApiClientError(err.code ?? 'UNKNOWN_ERROR', err.message ?? 'Neočekivana greška.')
   }
 
-  return (body as SuccessResponseDTO<T>).data
+  return (body as SuccessResponseDTO<T>).entity
 }
 
 export const apiClient = {

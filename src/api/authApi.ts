@@ -13,7 +13,10 @@ export interface RegisterRequest {
 }
 
 export const authApi = {
-  login: (data: LoginRequest) => apiClient.post<User>('/auth/login', data),
+  login: async (data: LoginRequest): Promise<User> => {
+    await apiClient.post<{ message: string }>('/auth/login', data)
+    return apiClient.get<User>('/auth/me', { skipAuthRedirect: true })
+  },
   register: (data: RegisterRequest) => apiClient.post<null>('/auth/register', data),
   activate: (token: string) => apiClient.get<null>(`/auth/activate?token=${encodeURIComponent(token)}`),
   me: () => apiClient.get<User>('/auth/me', { skipAuthRedirect: true }),

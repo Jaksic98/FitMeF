@@ -3,12 +3,10 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { terminiApi } from '../../../api/terminiApi'
 import { ApiClientError } from '../../../api/client'
 import {
-  Alert, Button, DataTable, FilterBar, Input, Modal, Pagination, Select,
+  Alert, Button, DataTable, FilterBar, Input, Modal, Select,
   StatusPill, useToast, PencilIcon, TrashIcon,
 } from '../../../components/ui'
 import type { Status, Termin } from '../../../types'
-
-const PAGE_SIZE = 5
 
 type ActiveModal =
   | { kind: 'none' }
@@ -27,7 +25,6 @@ export function TerminiPage() {
   const { show } = useToast()
   const queryClient = useQueryClient()
 
-  const [page, setPage] = useState(1)
   const [dateFilter, setDateFilter] = useState('')
   const [modal, setModal] = useState<ActiveModal>({ kind: 'none' })
   const [date, setDate] = useState('')
@@ -37,17 +34,10 @@ export function TerminiPage() {
   const [formError, setFormError] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['admin-termini', page, dateFilter],
-    queryFn: () => terminiApi.getAll({ page, size: PAGE_SIZE, date: dateFilter || undefined }),
+  const { data: items = [], isLoading, isError } = useQuery({
+    queryKey: ['admin-termini', dateFilter],
+    queryFn: () => terminiApi.getAll(dateFilter || undefined),
   })
-
-  const items = data?.content ?? []
-
-  function handleFilterDate(d: string) {
-    setDateFilter(d)
-    setPage(1)
-  }
 
   function openCreate() {
     setDate('')
@@ -59,8 +49,8 @@ export function TerminiPage() {
 
   function openEdit(item: Termin) {
     setDate(item.date)
-    setStartTime(item.startTime)
-    setEndTime(item.endTime)
+    setStartTime(item.startTime.slice(0, 5))
+    setEndTime(item.endTime.slice(0, 5))
     setStatus(item.status)
     setFormError(null)
     setModal({ kind: 'edit', item })
@@ -80,14 +70,16 @@ export function TerminiPage() {
       setFormError('Vreme početka mora biti pre vremena kraja.')
       return
     }
+    const start = `${startTime}:00`
+    const end = `${endTime}:00`
     setIsSaving(true)
     setFormError(null)
     try {
       if (modal.kind === 'create') {
-        await terminiApi.create({ date, startTime, endTime })
+        await terminiApi.create({ date, startTime: start, endTime: end })
         show('Termin kreiran.')
       } else if (modal.kind === 'edit') {
-        await terminiApi.update(modal.item.id, { date, startTime, endTime, status })
+        await terminiApi.update(modal.item.id, { date, startTime: start, endTime: end, status })
         show('Termin sačuvan.')
       }
       await queryClient.invalidateQueries({ queryKey: ['admin-termini'] })
@@ -133,9 +125,9 @@ export function TerminiPage() {
 
       <FilterBar
         date={dateFilter}
-        onDateChange={handleFilterDate}
-        onClear={() => handleFilterDate('')}
-        count={data?.totalElements}
+        onDateChange={setDateFilter}
+        onClear={() => setDateFilter('')}
+        count={items.length}
       />
 
       <DataTable columns={COLS} isEmpty={!isLoading && items.length === 0} isLoading={isLoading} emptyLabel="Nema termina za izabrani datum.">
@@ -167,16 +159,6 @@ export function TerminiPage() {
           </tr>
         ))}
       </DataTable>
-
-      {data && data.totalPages > 1 && (
-        <Pagination
-          page={page}
-          totalPages={data.totalPages}
-          totalElements={data.totalElements}
-          size={PAGE_SIZE}
-          onPageChange={setPage}
-        />
-      )}
 
       <Modal
         open={modal.kind === 'create' || modal.kind === 'edit'}

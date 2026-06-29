@@ -2,7 +2,7 @@ import { apiClient } from './client'
 import type { Page, PageParams, Status, User } from '../types'
 
 export interface UpdateProfileRequest {
-  phone?: string
+  phoneNumber?: string
   emailNotifications?: boolean
   calendarNotifications?: boolean
 }

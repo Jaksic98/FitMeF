@@ -2,10 +2,8 @@ import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { appointmentsApi } from '../../../api/appointmentsApi'
 import { ApiClientError } from '../../../api/client'
-import { Alert, Badge, Button, DataTable, Pagination, Select, useToast } from '../../../components/ui'
+import { Alert, Badge, Button, DataTable, Select, useToast } from '../../../components/ui'
 import type { AppointmentSlotDTO, AppointmentStatus } from '../../../types'
-
-const PAGE_SIZE = 5
 
 const STATUS_LABELS: Record<AppointmentStatus, string> = {
   AVAILABLE: 'Slobodno',
@@ -38,15 +36,12 @@ export function RezervacijePage() {
   const { show } = useToast()
   const queryClient = useQueryClient()
 
-  const [page, setPage] = useState(1)
   const [editing, setEditing] = useState<EditingState | null>(null)
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['admin-rezervacije', page],
-    queryFn: () => appointmentsApi.getAll({ page, size: PAGE_SIZE }),
+  const { data: items = [], isLoading, isError } = useQuery({
+    queryKey: ['admin-rezervacije'],
+    queryFn: () => appointmentsApi.getAll(),
   })
-
-  const items = data?.content ?? []
 
   function startEdit(item: AppointmentSlotDTO) {
     setEditing({ id: item.id, status: item.status, isSaving: false, error: null })
@@ -58,10 +53,14 @@ export function RezervacijePage() {
 
   async function saveEdit() {
     if (!editing) return
+    if (editing.status !== 'CANCELED') {
+      setEditing((prev) => prev && { ...prev, error: 'Podržano je samo otkazivanje.' })
+      return
+    }
     setEditing((prev) => prev && { ...prev, isSaving: true, error: null })
     try {
-      await appointmentsApi.adminUpdate(editing.id, editing.status)
-      show('Rezervacija ažurirana.')
+      await appointmentsApi.adminCancel(editing.id)
+      show('Rezervacija otkazana.')
       await queryClient.invalidateQueries({ queryKey: ['admin-rezervacije'] })
       setEditing(null)
     } catch (err) {
@@ -160,19 +159,6 @@ export function RezervacijePage() {
       </DataTable>
 
       {editing?.error && <p className="text-sm text-danger">{editing.error}</p>}
-
-      {data && data.totalPages > 1 && (
-        <Pagination
-          page={page}
-          totalPages={data.totalPages}
-          totalElements={data.totalElements}
-          size={PAGE_SIZE}
-          onPageChange={(p) => {
-            setPage(p)
-            setEditing(null)
-          }}
-        />
-      )}
     </div>
   )
 }

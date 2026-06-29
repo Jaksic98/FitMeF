@@ -1,20 +1,20 @@
 import { apiClient } from './client'
-import type { Page, PageParams, Pilates, Status } from '../types'
+import type { Pilates, Status } from '../types'
 
 export interface CreatePilatesRequest {
   name: string
-  position: number
+  position: string
 }
 
 export interface UpdatePilatesRequest {
   name?: string
-  position?: number
+  position?: string
   status?: Status
 }
 
 export const pilatesApi = {
-  getAll: ({ page, size = 5 }: PageParams) =>
-    apiClient.get<Page<Pilates>>(`/pilates?page=${page}&size=${size}`),
+  getAll: () =>
+    apiClient.get<Pilates[]>('/pilates'),
 
   create: (data: CreatePilatesRequest) =>
     apiClient.post<Pilates>('/pilates', data),

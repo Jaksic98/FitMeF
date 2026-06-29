@@ -3,12 +3,10 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { pilatesApi } from '../../../api/pilatesApi'
 import { ApiClientError } from '../../../api/client'
 import {
-  Alert, Button, DataTable, Input, Modal, Pagination, Select, StatusPill, useToast,
+  Alert, Button, DataTable, Input, Modal, Select, StatusPill, useToast,
   PencilIcon, TrashIcon,
 } from '../../../components/ui'
 import type { Pilates, Status } from '../../../types'
-
-const PAGE_SIZE = 5
 
 type ActiveModal =
   | { kind: 'none' }
@@ -17,7 +15,7 @@ type ActiveModal =
   | { kind: 'delete'; item: Pilates }
 
 const COLS = [
-  { label: 'Poz.', className: 'w-16' },
+  { label: 'Poz.', className: 'w-20' },
   { label: 'Naziv', className: '' },
   { label: 'Status', className: 'w-28' },
   { label: '', className: 'w-20' },
@@ -27,7 +25,6 @@ export function SpravePage() {
   const { show } = useToast()
   const queryClient = useQueryClient()
 
-  const [page, setPage] = useState(1)
   const [modal, setModal] = useState<ActiveModal>({ kind: 'none' })
   const [name, setName] = useState('')
   const [position, setPosition] = useState('')
@@ -35,12 +32,10 @@ export function SpravePage() {
   const [formError, setFormError] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['admin-sprave', page],
-    queryFn: () => pilatesApi.getAll({ page, size: PAGE_SIZE }),
+  const { data: items = [], isLoading, isError } = useQuery({
+    queryKey: ['admin-sprave'],
+    queryFn: () => pilatesApi.getAll(),
   })
-
-  const items = data?.content ?? []
 
   function openCreate() {
     setName('')
@@ -52,7 +47,7 @@ export function SpravePage() {
 
   function openEdit(item: Pilates) {
     setName(item.name)
-    setPosition(String(item.position))
+    setPosition(item.position)
     setStatus(item.status)
     setFormError(null)
     setModal({ kind: 'edit', item })
@@ -68,19 +63,14 @@ export function SpravePage() {
       setFormError('Naziv i pozicija su obavezni.')
       return
     }
-    const pos = Number(position)
-    if (!Number.isInteger(pos) || pos < 1) {
-      setFormError('Pozicija mora biti pozitivan ceo broj.')
-      return
-    }
     setIsSaving(true)
     setFormError(null)
     try {
       if (modal.kind === 'create') {
-        await pilatesApi.create({ name: name.trim(), position: pos })
+        await pilatesApi.create({ name: name.trim(), position: position.trim() })
         show('Sprava kreirana.')
       } else if (modal.kind === 'edit') {
-        await pilatesApi.update(modal.item.id, { name: name.trim(), position: pos, status })
+        await pilatesApi.update(modal.item.id, { name: name.trim(), position: position.trim(), status })
         show('Sprava sačuvana.')
       }
       await queryClient.invalidateQueries({ queryKey: ['admin-sprave'] })
@@ -118,7 +108,7 @@ export function SpravePage() {
       <DataTable columns={COLS} isEmpty={!isLoading && items.length === 0} isLoading={isLoading} emptyLabel="Nema sprava.">
         {items.map((item) => (
           <tr key={item.id} className="border-t border-line">
-            <td className="px-5 py-3.5 w-16 font-mono text-sm text-muted">{item.position}</td>
+            <td className="px-5 py-3.5 w-20 font-mono text-sm text-muted">{item.position}</td>
             <td className="px-5 py-3.5 text-base text-ink">{item.name}</td>
             <td className="px-5 py-3.5 w-28"><StatusPill status={item.status} /></td>
             <td className="px-5 py-3.5 w-20">
@@ -143,16 +133,6 @@ export function SpravePage() {
         ))}
       </DataTable>
 
-      {data && data.totalPages > 1 && (
-        <Pagination
-          page={page}
-          totalPages={data.totalPages}
-          totalElements={data.totalElements}
-          size={PAGE_SIZE}
-          onPageChange={setPage}
-        />
-      )}
-
       <Modal
         open={modal.kind === 'create' || modal.kind === 'edit'}
         onClose={closeModal}
@@ -167,10 +147,9 @@ export function SpravePage() {
           />
           <Input
             label="Pozicija"
-            type="number"
-            min="1"
             value={position}
             onChange={(e) => setPosition(e.target.value)}
+            placeholder="npr. A1"
           />
           {modal.kind === 'edit' && (
             <Select

@@ -38,7 +38,7 @@ export function KorisniciPage() {
     queryFn: () => usersApi.getAll({ page, size: PAGE_SIZE }),
   })
 
-  const items = data?.content ?? []
+  const items = data?.data ?? []
 
   function openEdit(user: User) {
     setForm({
