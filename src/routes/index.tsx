@@ -3,6 +3,8 @@ import { useAuth } from '../contexts/AuthContext'
 import { AppLayout } from '../components/layout'
 import { LoginPage, RegisterPage, ActivatePage } from '../features/auth'
 import { BookingPage } from '../features/booking'
+import { MyAppointmentsPage } from '../features/myappointments'
+import { ProfilePage } from '../features/profile'
 import type { ReactNode } from 'react'
 
 function GuestGuard({ children }: { children: ReactNode }) {
@@ -39,8 +41,8 @@ export function AppRoutes() {
       <Route element={<AppLayout />}>
         {/* Client — Modul 5–6 */}
         <Route path="/" element={<ClientGuard><BookingPage /></ClientGuard>} />
-        <Route path="/termini" element={<ClientGuard><div>Moji termini</div></ClientGuard>} />
-        <Route path="/profil" element={<ClientGuard><div>Profil</div></ClientGuard>} />
+        <Route path="/termini" element={<ClientGuard><MyAppointmentsPage /></ClientGuard>} />
+        <Route path="/profil" element={<ClientGuard><ProfilePage /></ClientGuard>} />
 
         {/* Admin — Modul 7 */}
         <Route path="/admin/sprave" element={<AdminGuard><div>Admin Sprave</div></AdminGuard>} />

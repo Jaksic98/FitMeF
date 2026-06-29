@@ -69,10 +69,10 @@ Backend: `SPEC.md` §4.3 booking, §4.2 pre-generisani slotovi.
 
 Backend: `SPEC.md` §4.4 cancel (12h pravilo), §4.5 reschedule, profil = `User`.
 
-- [ ] "Moji termini" lista — `getByUserId`, prikaz preko `AppointmentSlot`/`Card`.
-- [ ] Cancel akcija — `update` → AVAILABLE; **reflektovati 12h pravilo** (disable cancel unutar 12h, tooltip/lock-label), surface backend rejekciju ako se ipak pošalje.
-- [ ] Reschedule tok — atomska zamena slota (stari→AVAILABLE, novi→BOOKED), bez novog kredita; `danger` banner "pomeranje termina" iz `DESIGN.md` → Alert.
-- [ ] Profil ekran — Avatar 52px, `stat` kartica kredita (`text-stat` mono broj), telefon, toggle-i `emailNotifications`/`calendarNotifications` (flag-only u MVP-u, ali UI postoji).
+- [x] "Moji termini" lista — `getByUserId`, prikaz preko `AppointmentSlot`/`Card`.
+- [x] Cancel akcija — `update` → AVAILABLE; **reflektovati 12h pravilo** (disable cancel unutar 12h, tooltip/lock-label), surface backend rejekciju ako se ipak pošalje.
+- [x] Reschedule tok — atomska zamena slota (stari→AVAILABLE, novi→BOOKED), bez novog kredita; `danger` banner "pomeranje termina" iz `DESIGN.md` → Alert.
+- [x] Profil ekran — Avatar 52px, `stat` kartica kredita (`text-stat` mono broj), telefon, toggle-i `emailNotifications`/`calendarNotifications` (flag-only u MVP-u, ali UI postoji).
 
 ## Modul 7 — Admin: liste i CRUD (feature: pilates/termini/appointments/users)
 
