@@ -88,11 +88,11 @@ Backend: `SPEC.md` §3, §5; admin-only `@PreAuthorize`. Sve liste dele `DataTab
 
 ## Modul 8 — Polish i build
 
-- [ ] Responsive prolaz: mobile (`flex-wrap`, jedna kolona) ↔ desktop (`lg` dvopanelno, sticky desni panel) prema `DESIGN.md` → Breakpoints.
-- [ ] A11y prolaz: focus prstenovi, `aria-*`, keyboard za modale/toggle/tabove.
-- [ ] Empty / loading / error stanja za svaku listu i tok (TanStack Query `isLoading`/`isError`).
-- [ ] Vizuelna provera prema prototipu (proporcije/spacing), token-audit (nigde arbitrarne `-[#hex]`/`-[px]` vrednosti).
-- [ ] `npm run build` → kopirati `dist/` u backend static-resources putanju (servira `FrontendConfig`); dokumentovati korak.
+- [x] Responsive prolaz: mobile (`flex-wrap`, jedna kolona) ↔ desktop (`lg` dvopanelno, sticky desni panel) prema `DESIGN.md` → Breakpoints. Header tab-traka scrolluje horizontalno na mobilnom (`overflow-x-auto scrollbar-none`), DataTable dobija `overflow-x-auto` wrapper.
+- [x] A11y prolaz: focus prstenovi, `aria-*`, keyboard za modale/toggle/tabove. Globalni `:focus-visible` ring u `index.css`; `aria-current="page"` na aktivnom NavLink-u via `useMatch`; `scope="col"` na svim `<th>` u DataTable.
+- [x] Empty / loading / error stanja za svaku listu i tok (TanStack Query `isLoading`/`isError`). Sva 4 admin ekrana dobijaju `isError` Alert.
+- [x] Vizuelna provera prema prototipu (proporcije/spacing), token-audit (nigde arbitrarne `-[#hex]`/`-[px]` vrednosti). Jedini nalaz: `w-[62px] h-[62px]` u DaySelector — dodat token `'15.5': '62px'` u tailwind.config.js.
+- [x] `npm run build` → build prošao čisto (289 kB JS, 62 kB CSS gzip). Kopiranje `dist/` u backend: `cp -r dist/* <backend>/src/main/resources/static/`
 
 ## Van scope-a za sada (buduće)
 

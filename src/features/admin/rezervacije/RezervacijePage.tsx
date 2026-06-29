@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { appointmentsApi } from '../../../api/appointmentsApi'
 import { ApiClientError } from '../../../api/client'
-import { Badge, Button, DataTable, Pagination, Select, useToast } from '../../../components/ui'
+import { Alert, Badge, Button, DataTable, Pagination, Select, useToast } from '../../../components/ui'
 import type { AppointmentSlotDTO, AppointmentStatus } from '../../../types'
 
 const PAGE_SIZE = 5
@@ -41,7 +41,7 @@ export function RezervacijePage() {
   const [page, setPage] = useState(1)
   const [editing, setEditing] = useState<EditingState | null>(null)
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['admin-rezervacije', page],
     queryFn: () => appointmentsApi.getAll({ page, size: PAGE_SIZE }),
   })
@@ -82,6 +82,8 @@ export function RezervacijePage() {
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-h1 text-ink">Rezervacije</h1>
+
+      {isError && <Alert variant="error">Greška pri učitavanju rezervacija. Pokušaj ponovo.</Alert>}
 
       <DataTable
         columns={COLS}

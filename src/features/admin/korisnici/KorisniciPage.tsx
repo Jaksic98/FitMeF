@@ -33,7 +33,7 @@ export function KorisniciPage() {
   const [formError, setFormError] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['admin-korisnici', page],
     queryFn: () => usersApi.getAll({ page, size: PAGE_SIZE }),
   })
@@ -80,6 +80,8 @@ export function KorisniciPage() {
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-h1 text-ink">Korisnici</h1>
+
+      {isError && <Alert variant="error">Greška pri učitavanju korisnika. Pokušaj ponovo.</Alert>}
 
       <DataTable
         columns={COLS}

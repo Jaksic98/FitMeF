@@ -18,12 +18,14 @@ export function DataTable({ columns, children, isEmpty, emptyLabel, isLoading }:
 
   return (
     <div className="rounded-card border border-border-card overflow-hidden bg-surface">
+      <div className="overflow-x-auto">
       <table className="w-full border-collapse">
         <thead className="bg-surface-subtle">
           <tr>
             {columns.map((col, i) => (
               <th
                 key={i}
+                scope="col"
                 className={[
                   'text-label text-muted uppercase px-5 py-3 text-left font-normal',
                   col.className,
@@ -54,6 +56,7 @@ export function DataTable({ columns, children, isEmpty, emptyLabel, isLoading }:
           )}
         </tbody>
       </table>
+      </div>
     </div>
   )
 }

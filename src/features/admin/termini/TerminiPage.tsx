@@ -37,7 +37,7 @@ export function TerminiPage() {
   const [formError, setFormError] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['admin-termini', page, dateFilter],
     queryFn: () => terminiApi.getAll({ page, size: PAGE_SIZE, date: dateFilter || undefined }),
   })
@@ -128,6 +128,8 @@ export function TerminiPage() {
         <h1 className="text-h1 text-ink">Termini</h1>
         <Button variant="primary" size="nav" onClick={openCreate}>+ Dodaj termin</Button>
       </div>
+
+      {isError && <Alert variant="error">Greška pri učitavanju termina. Pokušaj ponovo.</Alert>}
 
       <FilterBar
         date={dateFilter}

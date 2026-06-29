@@ -90,6 +90,7 @@ module.exports = {
         '4.5': '18px', // kompaktni card padding
         '5.5': '22px', // razmak između sekcija
         '13':  '52px', // veliki vertikalni razmak
+        '15.5': '62px', // day-selector dugme
         '16.5': '66px', // header visina
         '1.25':  '5px', // badge py
         '2.25':  '9px', // badge px

@@ -33,7 +33,7 @@ export function DaySelector({ selectedDate, onChange }: DaySelectorProps) {
             onClick={() => onChange(iso)}
             aria-pressed={isSelected}
             className={[
-              'flex flex-col items-center justify-center w-[62px] h-[62px] rounded-xl border shrink-0 transition-colors',
+              'flex flex-col items-center justify-center w-15.5 h-15.5 rounded-xl border shrink-0 transition-colors',
               isSelected
                 ? 'bg-ink text-white border-ink'
                 : 'bg-surface border-border text-ink hover:border-ink',

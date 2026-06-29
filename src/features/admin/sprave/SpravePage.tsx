@@ -35,7 +35,7 @@ export function SpravePage() {
   const [formError, setFormError] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['admin-sprave', page],
     queryFn: () => pilatesApi.getAll({ page, size: PAGE_SIZE }),
   })
@@ -112,6 +112,8 @@ export function SpravePage() {
         <h1 className="text-h1 text-ink">Sprave</h1>
         <Button variant="primary" size="nav" onClick={openCreate}>+ Dodaj spravu</Button>
       </div>
+
+      {isError && <Alert variant="error">Greška pri učitavanju sprava. Pokušaj ponovo.</Alert>}
 
       <DataTable columns={COLS} isEmpty={!isLoading && items.length === 0} isLoading={isLoading} emptyLabel="Nema sprava.">
         {items.map((item) => (
